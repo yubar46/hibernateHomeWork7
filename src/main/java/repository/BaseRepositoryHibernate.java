@@ -1,5 +1,6 @@
 package repository;
-/*
+
+import domain.User;
 import utli.ApplicationContext;
 import utli.HibernateUtil;
 
@@ -14,6 +15,9 @@ public abstract class BaseRepositoryHibernate<T,ID > implements  Repository<T,ID
     public BaseRepositoryHibernate(EntityManagerFactory emf){
         this.entityManagerFactory = emf;
     }
+
+
+     abstract Class<T> getClassObject();
 
     @Override
     public void create(T t) {
@@ -34,26 +38,51 @@ public abstract class BaseRepositoryHibernate<T,ID > implements  Repository<T,ID
     @Override
     public T select(ID id) {
         entityManager = entityManagerFactory.createEntityManager();
-
+        T t = null;
         try {
             entityManager.getTransaction().begin();
-            TypedQuery<T> query = entityManager.createQuery("",)
+            t= entityManager.find(getClassObject(),id);
             entityManager.getTransaction().commit();
         }catch (Exception e ){
             System.out.println("wrong input");
             entityManager.getTransaction().rollback();
         }finally {
             entityManager.close();
+            return t;
         }
-
-        return null;
     }
 
     @Override
     public T Update(T t) {
-        return null;
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.merge(t);
+            entityManager.getTransaction().commit();
+        }catch (Exception e ){
+            System.out.println("wrong input");
+            entityManager.getTransaction().rollback();
+        }finally {
+            entityManager.close();
+            return t;
+        }
     }
 
 
+    @Override
+    public void delete(T t) {
+        entityManager = entityManagerFactory.createEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.remove(t);
+            entityManager.getTransaction().commit();
+        }catch (Exception e ){
+            System.out.println("wrong input");
+            entityManager.getTransaction().rollback();
+        }finally {
+            entityManager.close();
+
+        }
+    }
+
 }
-*/
+

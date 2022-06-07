@@ -1,8 +1,20 @@
 package utli;
 
+import repository.*;
+
 import javax.persistence.EntityManagerFactory;
 
 public  class  ApplicationContext {
 
 
+
+public UserEntityManagerRepository userRepository = new UserEntityManagerRepository(HibernateUtil.getEntityManagerFactory());
+public ProductEntityManagerRepository productEntityManagerRepository = new ProductEntityManagerRepository(HibernateUtil.getEntityManagerFactory());
+public ProductTypeEntityManagerRepository productTypeEntityManagerRepository= new ProductTypeEntityManagerRepository(HibernateUtil.getEntityManagerFactory());
+public PastOrderEntityManagerRepository pastOrderEntityManagerRepository= new PastOrderEntityManagerRepository(HibernateUtil.getEntityManagerFactory());
+public CartEntityManagerRepository cartEntityManagerRepository= new CartEntityManagerRepository(HibernateUtil.getEntityManagerFactory());
+public CartItemEntityManagerRepository cartItemEntityManagerRepository = new CartItemEntityManagerRepository(HibernateUtil.getEntityManagerFactory());
+public FeatureEntityManagerRepository featureEntityManagerRepository = new FeatureEntityManagerRepository(HibernateUtil.getEntityManagerFactory());
+public AttributeEntityManagerRepository attributeEntityManagerRepository = new AttributeEntityManagerRepository(HibernateUtil.getEntityManagerFactory());
+public AddressEntityManagerRepository addressEntityManagerRepository = new AddressEntityManagerRepository(HibernateUtil.getEntityManagerFactory());
 }

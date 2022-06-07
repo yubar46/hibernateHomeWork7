@@ -4,7 +4,7 @@ import domain.User;
 
 import java.util.List;
 
-public interface UserRepository extends Repository<User,Integer> {
+public interface UserRepository  {
 
     List<User> selectAllUsers();
 

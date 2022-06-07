@@ -4,7 +4,7 @@ import domain.*;
 
 import java.sql.SQLException;
 import java.util.Scanner;
-/*
+
 public class Menu {
 
     Scanner inputNumber = new Scanner(System.in);
@@ -361,4 +361,4 @@ public class Menu {
 
     }
 }
-*/
+

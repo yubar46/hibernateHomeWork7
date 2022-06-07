@@ -9,54 +9,26 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
-public class ProductTypeEntityManagerRepository implements ProductTypeRepository {
+public class ProductTypeEntityManagerRepository extends BaseRepositoryHibernate<ProductType,Integer> implements ProductTypeRepository {
     EntityManagerFactory entityManagerFactory ;
     EntityManager entityManager;
 
-    public ProductTypeEntityManagerRepository(EntityManagerFactory entityManagerFactory){
-        this.entityManagerFactory = entityManagerFactory;
-    }
-
-
-    @Override
-    public void create(ProductType productType) {
-
-    }
-
-    @Override
-    public ProductType select(Integer pt_id) {
-        entityManager = entityManagerFactory.createEntityManager();
-        ProductType productType = new ProductType();
-        try {
-            entityManager.getTransaction().begin();
-            productType= entityManager.find(ProductType.class,pt_id);
-            entityManager.getTransaction().commit();
-        }catch (Exception e ){
-            System.out.println("wrong input");
-            entityManager.getTransaction().rollback();
-        }finally {
-            entityManager.close();
-            return productType;
-        }
-    }
-
-    @Override
-    public ProductType Update(ProductType productType) {
-        return null;
-    }
-
-    @Override
-    public void delete(ProductType productType) {
-
+    public ProductTypeEntityManagerRepository(EntityManagerFactory emf) {
+        super(emf);
     }
 
 
     @Override
     public List<ProductType> showAllProductTypes() {
         entityManager = entityManagerFactory.createEntityManager();
-        TypedQuery typedQuery = entityManager.createQuery("select pt from  ProductType pt", Product.class);
+        TypedQuery typedQuery = entityManager.createQuery("select pt from  ProductType pt", ProductType.class);
         List<ProductType> productTypes = typedQuery.getResultList();
 
         return productTypes;
+    }
+
+    @Override
+    Class<ProductType> getClassObject() {
+        return ProductType.class;
     }
 }
