@@ -1,24 +1,47 @@
 package domain;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-
+@Entity
+@Table(name =User.TABLE_NAME)
 public class User {
-    private String userName;
-    private String password;
-    private String firstName;
-    private String lastName;
-    private String phoneNumber;
-    private String email;
+    public static final String TABLE_NAME = "users";
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(unique = true,nullable = false)
+    private String userName;
 
-    private ArrayList<Address> addresses = new ArrayList<Address>();
+    @Column(nullable = false)
+    private String password;
 
+    @Column(nullable = false)
+    private String firstName;
+
+    @Column(nullable = false)
+    private String lastName;
+
+    @Column(unique = true)
+    private String phoneNumber;
+
+    @Column(unique = true)
+    private String email;
+
+
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name="user_Id")
+    private List<Address> addresses = new ArrayList<Address>();
+
+    @OneToOne(fetch = FetchType.LAZY)
     private Cart cart = new Cart();
 
-    private List<PastOrders> pastOrders = new LinkedList<PastOrders>();
+    @OneToMany(mappedBy = "user")
+
+    private List<PastOrder> pastOrders = new LinkedList<PastOrder>();
 
 
     public Cart getCart() {
@@ -101,7 +124,7 @@ public class User {
     }
 
 
-    public ArrayList<Address> getAddresses() {
+    public List<Address> getAddresses() {
         return addresses;
     }
 
@@ -109,16 +132,16 @@ public class User {
         this.addresses.add(addresses);
     }
 
-    public void setAddresses(ArrayList<Address> addresses) {
+    public void setAddresses(List<Address> addresses) {
         this.addresses = addresses;
     }
 
 
-    public List<PastOrders> getPastOrders() {
+    public List<PastOrder> getPastOrders() {
         return pastOrders;
     }
 
-    public void setPastOrders(List<PastOrders> pastOrders) {
+    public void setPastOrders(List<PastOrder> pastOrders) {
         this.pastOrders = pastOrders;
     }
 }

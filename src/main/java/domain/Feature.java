@@ -1,18 +1,27 @@
 package domain;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = Feature.TABLE_NAME)
 public class Feature {
+    public static final String TABLE_NAME = "features";
 
-    private String feature;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(unique = true)
     private int id;
+    private String value;
 
-    private int productId;
 
-    private int attributeId;
+    @ManyToOne
+    private Attribute attribute;
 
-    public Feature(String feature, int productId, int attributeId) {
-        this.feature = feature;
-        this.productId = productId;
-        this.attributeId = attributeId;
+    public Feature(String value, Attribute attribute) {
+        this.value = value;
+
+        this.attribute = attribute;
+
     }
 
     public Feature() {
@@ -20,13 +29,14 @@ public class Feature {
     }
 
 
-    public String getFeature() {
-        return feature;
+    public String getValue() {
+        return value;
     }
 
-    public void setFeature(String feature) {
-        this.feature = feature;
+    public void setValue(String featureValue) {
+        this.value = featureValue;
     }
+
 
     public int getId() {
         return id;
@@ -36,19 +46,12 @@ public class Feature {
         this.id = id;
     }
 
-    public int getProductId() {
-        return productId;
+
+    public Attribute getAttribute() {
+        return attribute;
     }
 
-    public void setProductId(int productId) {
-        this.productId = productId;
-    }
-
-    public int getAttributeId() {
-        return attributeId;
-    }
-
-    public void setAttributeId(int attributeId) {
-        this.attributeId = attributeId;
+    public void setAttribute(Attribute attribute) {
+        this.attribute = attribute;
     }
 }

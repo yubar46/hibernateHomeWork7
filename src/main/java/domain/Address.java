@@ -1,12 +1,27 @@
 package domain;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = Address.TABLE_NAME)
 public class Address {
-    private String state;
-    private String city;
-    private String streetName;
-    private String pistolCode;
-    private int UserId;
+    public static final String TABLE_NAME = "addresses";
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(unique = true)
     private int id;
+
+    @Column(nullable = false)
+    private String state;
+    @Column(nullable = false)
+    private String city;
+    @Column(nullable = false)
+    private String streetName;
+    @Column(nullable = false)
+    private String pistolCode;
+
+
+
 
     public Address(String state, String city, String streetName, String pistolCode) {
         this.state = state;
@@ -51,13 +66,6 @@ public class Address {
         this.pistolCode = pistolCode;
     }
 
-    public int getUserId() {
-        return UserId;
-    }
-
-    public void setUserId(int userId) {
-        UserId = userId;
-    }
 
     public int getId() {
         return id;

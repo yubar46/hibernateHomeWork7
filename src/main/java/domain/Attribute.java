@@ -1,14 +1,21 @@
 package domain;
 
-public class Attribute {
+import javax.persistence.*;
 
+@Entity
+@Table(name =Attribute.TABLE_NAME)
+public class Attribute {
+    public static final String TABLE_NAME = "attributes";
+    @Id
+    @Column(unique = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String title;
-    private int productTypeId;
 
-    public Attribute(String title, int productTypeId) {
+
+    public Attribute(String title ) {
         this.title = title;
-        this.productTypeId = productTypeId;
+
     }
 
     public Attribute() {
@@ -31,12 +38,10 @@ public class Attribute {
         this.title = title;
     }
 
-    public int getProductTypeId() {
-        return productTypeId;
+    public static String getTableName() {
+        return TABLE_NAME;
     }
 
-    public void setProductTypeId(int productTypeId) {
-        this.productTypeId = productTypeId;
-    }
+
 }
 

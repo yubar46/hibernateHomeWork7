@@ -1,5 +1,16 @@
 package domain;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = CartItem.TABLE_NAME)
 public class CartItem {
+    public static final String TABLE_NAME = "cart_Items";
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     private Product product;
     private int number;
     int allPrice;
@@ -11,6 +22,17 @@ public class CartItem {
 
     }
 
+    public CartItem() {
+
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public Product getProduct() {
         return product;
@@ -35,4 +57,5 @@ public class CartItem {
     public void setAllPrice(int allPrice) {
         this.allPrice = allPrice;
     }
+
 }

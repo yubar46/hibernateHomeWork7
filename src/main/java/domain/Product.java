@@ -1,15 +1,32 @@
 package domain;
 
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
+@Table(name = Product.TABLE_NAME)
 public class Product {
-
-    private String name;
-    private int number;
-    private int price;
-    private String image;
+    public static final String TABLE_NAME = "products";
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false)
+    private int number;
+
+    @Column(nullable = false)
+    private int price;
+
+    private String image;
+
+    @Column(nullable = false)
     private int ProductTypeId;
+
+    @OneToMany
+    @JoinColumn(name = "product_Id",referencedColumnName = "id")
     private List<Feature> features;
 
     public Product(String name, int price) {
@@ -76,5 +93,17 @@ public class Product {
 
     public void setProductTypeId(int productTypeId) {
         ProductTypeId = productTypeId;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", number=" + number +
+                ", price=" + price +
+                ", ProductTypeId=" + ProductTypeId +
+                ", features=" + features +
+                '}';
     }
 }
